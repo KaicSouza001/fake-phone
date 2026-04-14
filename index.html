@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Phone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="phone">
+
+  <!-- TELA DE NOTIFICAÇÕES -->
+  <div class="notifications" id="notifScreen">
+
+    <div class="notification">
+      <img src="images/icon.png">
+      <div class="text">
+        <h4>Venda aprovada!</h4>
+        <p>Sua comissão: R$ 294,51</p>
+      </div>
+      <span>há 2h</span>
+    </div>
+
+    <div class="notification">
+      <img src="images/icon.png">
+      <div class="text">
+        <h4>Venda aprovada!</h4>
+        <p>Sua comissão: R$ 479,65</p>
+      </div>
+      <span>há 2h</span>
+    </div>
+
+  </div>
+
+  <!-- BOTÃO FAKE (abre app) -->
+  <div class="openApp" onclick="abrirApp()">
+    📊
+  </div>
+
+  <!-- TELA DO APP -->
+  <div class="appScreen" id="appScreen">
+    <img src="images/app-vendas.jpg">
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
