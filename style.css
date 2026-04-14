@@ -14,7 +14,7 @@ body {
   border-radius: 40px;
   overflow: hidden;
   position: relative;
-  background: url("Imagem Icone/Imagem do Wallpaper.jpg") center/cover;
+  background: url("Imagem Icone/WALLPAPER.png") center/cover;
   box-shadow: 0 0 40px rgba(0,0,0,0.8);
   cursor: none;
 }
@@ -30,15 +30,14 @@ body {
   font-size: 14px;
 }
 
-/* ÁREA DE NOTIFICAÇÃO */
+/* NOTIFICAÇÕES */
 .notifications {
   position: absolute;
   top: 40px;
   width: 100%;
   height: calc(100% - 40px);
-  overflow-y: scroll;
   padding: 15px;
-  backdrop-filter: blur(20px);
+  overflow-y: auto;
 }
 
 /* CARD */
@@ -51,6 +50,19 @@ body {
   padding: 12px;
   margin-bottom: 12px;
   color: white;
+
+  /* animação */
+  transform: translateY(-50px);
+  opacity: 0;
+  animation: slideDown 0.5s ease forwards;
+}
+
+/* ANIMAÇÃO */
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ÍCONE */
