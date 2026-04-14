@@ -20,11 +20,11 @@ body {
   cursor: none;
 }
 
-/* 🔴 GRAVAÇÃO (AGORA CENTRAL EM CIMA DA ISLAND) */
+/* 🔴 GRAVAÇÃO (AJUSTADO PRO LADO DIREITO) */
 .recording-dot {
   position: absolute;
-  top: 4px;
-  left: 50%;
+  top: 5px;
+  left: 60%; /* puxei mais pra direita */
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
@@ -38,7 +38,7 @@ body {
   position: absolute;
   top: 10px;
   width: 100%;
-  padding: 0 20px; /* aumentei pra não cortar */
+  padding: 0 28px; /* aumentei pra empurrar tudo pra dentro */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,13 +56,14 @@ body {
   gap: 6px;
 }
 
-/* BATERIA (CORRIGIDA) */
+/* 🔋 BATERIA (MAIS PRA DENTRO) */
 .battery {
   width: 24px;
   height: 12px;
   border: 1.5px solid white;
   border-radius: 3px;
   position: relative;
+  margin-right: 6px; /* empurra mais pra dentro */
   box-sizing: border-box;
 }
 
