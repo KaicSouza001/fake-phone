@@ -1,46 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Fake Phone</title>
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <span id="hora">09:41</span>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <div class="right-icons">
+    <!-- SINAL -->
+    <div class="signal">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-<div class="phone">
+    <!-- WIFI -->
+    <div class="wifi">
+      <span></span>
+    </div>
 
-  <!-- STATUS BAR -->
-  <div class="status-bar">
-    <span id="hora">09:41</span>
-
-    <div class="right-icons">
-      <!-- SINAL -->
-      <div class="signal">
-        <span></span><span></span><span></span><span></span>
-      </div>
-
-      <!-- WIFI -->
-      <div class="wifi"></div>
-
-      <!-- BATERIA -->
-      <div class="battery">
-        <div class="battery-level"></div>
-      </div>
+    <!-- BATERIA -->
+    <div class="battery">
+      <div class="battery-level"></div>
     </div>
   </div>
-
-  <!-- DYNAMIC ISLAND -->
-  <div class="island">
-    <div class="recording-dot"></div>
-  </div>
-
-  <!-- NOTIFICAÇÕES -->
-  <div class="notifications" id="notifications"></div>
-
 </div>
 
-<script src="script.js"></script>
-</body>
-</html>
+<!-- DYNAMIC ISLAND -->
+<div class="island">
+  <div class="recording-dot"></div>
+</div>
