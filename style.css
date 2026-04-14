@@ -20,87 +20,71 @@ body {
   cursor: none;
 }
 
-/* 🔐 LOCK */
-.lockscreen {
+/* 🔴 GRAVAÇÃO */
+.recording-dot {
   position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+  z-index: 5;
+}
+
+/* STATUS BAR */
+.status-bar {
+  position: absolute;
+  top: 10px;
   width: 100%;
-  height: 100%;
-  backdrop-filter: blur(10px);
-  color: white;
+  padding: 0 15px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 4;
+}
+
+/* BATERIA */
+.battery {
+  width: 22px;
+  height: 10px;
+  border: 1.5px solid white;
+  border-radius: 3px;
+  position: relative;
+}
+
+.battery::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 2px;
+  width: 2px;
+  height: 5px;
+  background: white;
+}
+
+.battery-level {
+  width: 70%;
+  height: 100%;
+  background: white;
+}
+
+/* DYNAMIC ISLAND */
+.island {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 25px;
+  background: black;
+  border-radius: 20px;
   z-index: 3;
 }
 
-.lock-time {
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.lock-text {
-  margin-top: 10px;
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.swipe-bar {
-  position: absolute;
-  bottom: 40px;
-  width: 120px;
-  height: 5px;
-  background: white;
-  border-radius: 10px;
-}
-
-/* 🔢 SENHA */
-.password-screen {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 4;
-  color: white;
-}
-
-.password-dots {
-  margin-bottom: 20px;
-}
-
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 60px);
-  gap: 10px;
-}
-
-.keypad button {
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-}
-
-/* 📱 SISTEMA */
-.system {
-  display: none;
-  width: 100%;
-  height: 100%;
-}
-
-.status-bar {
-  position: absolute;
-  top: 12px;
-  width: 100%;
-  text-align: center;
-  color: white;
-}
-
-/* SEM SCROLL VISUAL */
+/* NOTIFICAÇÕES */
 .notifications {
   position: absolute;
   top: 50px;
@@ -108,6 +92,7 @@ body {
   height: calc(100% - 50px);
   overflow-y: auto;
 
+  /* REMOVE BARRAS */
   scrollbar-width: none;
 }
 
@@ -115,21 +100,21 @@ body {
   display: none;
 }
 
-/* NOTIFICAÇÃO */
+/* CARD */
 .notification {
   width: 90%;
   margin: 10px auto;
   display: flex;
   align-items: center;
   background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(35px);
   border-radius: 22px;
   padding: 14px;
   color: white;
 
   transform: translateY(-60px);
   opacity: 0;
-  animation: slideDown 0.5s forwards;
+  animation: slideDown 0.5s ease forwards;
 }
 
 @keyframes slideDown {
@@ -139,11 +124,30 @@ body {
   }
 }
 
+/* ÍCONE */
 .notification img {
   width: 42px;
-  margin-right: 10px;
+  height: 42px;
+  border-radius: 12px;
+  margin-right: 12px;
 }
 
+/* TEXTO */
 .text {
   flex: 1;
+}
+
+.text strong {
+  font-size: 15px;
+}
+
+.text p {
+  margin: 2px 0 0;
+  font-size: 13px;
+}
+
+/* TEMPO */
+.time {
+  font-size: 11px;
+  opacity: 0.7;
 }
