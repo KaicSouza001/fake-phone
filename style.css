@@ -1,7 +1,3 @@
-:root {
-  --status-icon-color: #ffffff;
-}
-
 body {
   margin: 0;
   height: 100vh;
@@ -20,7 +16,6 @@ body {
   position: relative;
   background: url("Imagem Icone/WALLPAPER.png") center/cover no-repeat;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
-  cursor: default;
   user-select: none;
 }
 
@@ -30,22 +25,20 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 70px;
   background: transparent;
   border: none;
   outline: none;
-  z-index: 200;
+  z-index: 140;
   cursor: default;
 }
 
 /* PAINEL */
 .editor-panel {
   position: absolute;
-  top: 85px;
+  top: 80px;
   left: 15px;
   width: 240px;
-  max-height: 560px;
-  overflow-y: auto;
   background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -78,108 +71,78 @@ body {
   accent-color: white;
 }
 
-.range-group {
-  margin: 14px 0;
-}
-
-.range-group span {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.range-group input[type="range"],
-.range-group input[type="color"],
-.position-box select,
-.position-box input[type="number"] {
+.editor-panel select,
+.editor-panel input[type="number"],
+.editor-panel input[type="color"],
+.editor-panel button,
+.editor-panel input[type="range"] {
   width: 100%;
   box-sizing: border-box;
 }
 
-.range-group small {
-  display: block;
-  margin-top: 4px;
-  opacity: 0.8;
-}
-
-.position-box {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-}
-
-.position-box strong {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 13px;
-}
-
-.position-box label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 12px;
-}
-
-.xy-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.xy-row > div {
-  flex: 1;
-}
-
-.position-box select,
-.position-box input[type="number"] {
+.editor-panel select,
+.editor-panel input[type="number"] {
   border: none;
   border-radius: 10px;
-  padding: 9px;
-  background: rgba(255,255,255,0.12);
-  color: white;
-  outline: none;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 8px;
 }
 
-.position-box option {
-  color: black;
-}
-
-#applyPosition,
-#closeEditor,
-.secondary-btn {
-  width: 100%;
+.editor-panel input[type="color"] {
+  height: 42px;
   border: none;
+  border-radius: 10px;
+  background: transparent;
+  padding: 0;
+  margin-top: 6px;
+}
+
+.editor-panel button {
+  border: none;
+  background: white;
+  color: black;
   border-radius: 12px;
   padding: 10px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
-#applyPosition,
-#closeEditor {
-  background: white;
-  color: black;
+.section {
+  margin: 14px 0;
 }
 
-.secondary-btn {
-  background: rgba(255,255,255,0.14);
-  color: white;
+.section strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
 }
 
-.panel-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
+.position-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.position-grid span {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+#speedValue {
+  display: block;
+  margin-top: 5px;
+  opacity: 0.8;
+  font-size: 12px;
 }
 
 /* ITENS */
 .status-item {
   position: absolute;
   z-index: 50;
-  touch-action: none;
 }
 
 .status-item.drag-enabled {
@@ -194,14 +157,15 @@ body {
 
 /* HORA */
 #hora {
-  color: var(--status-icon-color);
+  color: white;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.2px;
   line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 
-/* BARRA PRETA */
+/* ISLAND */
 .island {
   width: 105px;
   height: 30px;
@@ -209,21 +173,9 @@ body {
   border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 24px;
   box-sizing: border-box;
-}
-
-.camera-hole {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: transparent;
-}
-
-/* PONTO VERMELHO */
-.dot-box {
-  width: 12px;
-  height: 12px;
 }
 
 .recording-dot {
@@ -231,6 +183,7 @@ body {
   height: 10px;
   background: #ff2a23;
   border-radius: 50%;
+  position: relative;
 }
 
 /* SINAL */
@@ -243,7 +196,7 @@ body {
 
 .signal span {
   width: 2.5px;
-  background: var(--status-icon-color);
+  background: white;
   border-radius: 1px;
 }
 
@@ -264,7 +217,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   border: 1.7px solid transparent;
-  border-top-color: var(--status-icon-color);
+  border-top-color: white;
   border-radius: 50%;
 }
 
@@ -284,7 +237,7 @@ body {
   position: absolute;
   width: 2.5px;
   height: 2.5px;
-  background: var(--status-icon-color);
+  background: white;
   border-radius: 50%;
   left: 50%;
   bottom: 1px;
@@ -296,7 +249,7 @@ body {
   position: relative;
   width: 22px;
   height: 11px;
-  border: 1.6px solid var(--status-icon-color);
+  border: 1.6px solid white;
   border-radius: 3px;
   box-sizing: border-box;
 }
@@ -308,14 +261,14 @@ body {
   top: 2.2px;
   width: 2px;
   height: 5px;
-  background: var(--status-icon-color);
+  background: white;
   border-radius: 1px;
 }
 
 .battery-level {
   width: 72%;
   height: 100%;
-  background: var(--status-icon-color);
+  background: white;
   border-radius: 1.5px;
 }
 
@@ -336,7 +289,6 @@ body {
   display: none;
 }
 
-/* CARD */
 .notification {
   width: 90%;
   margin: 10px auto;
