@@ -19,7 +19,7 @@ function criarNotificacao() {
   notif.className = "notification";
 
   notif.innerHTML = `
-    <img src="Imagem Icone/Icone Cakto Mensagens.png">
+    <img src="Imagem Icone/Icone Cakto Mensagens.png" alt="Ícone">
     <div class="text">
       <strong>Venda aprovada!</strong>
       <p>${gerarValor()}</p>
@@ -44,6 +44,7 @@ function atualizarHora() {
   const agora = new Date();
   let h = agora.getHours().toString().padStart(2, "0");
   let m = agora.getMinutes().toString().padStart(2, "0");
+
   document.getElementById("hora").innerText = `${h}:${m}`;
 }
 
