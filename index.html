@@ -9,49 +9,22 @@
 </head>
 <body>
 
-  <div class="phone">
+  <div class="phone" id="phone">
 
     <!-- BOTÃO INVISÍVEL -->
     <button id="hiddenEditorBtn" class="hidden-editor-btn" title="Abrir editor"></button>
 
-    <!-- PAINEL DE EDIÇÃO -->
+    <!-- PAINEL -->
     <div class="editor-panel" id="editorPanel">
       <h3>Editor da Status Bar</h3>
 
-      <label>
-        <input type="checkbox" id="toggleHora" checked>
-        Mostrar hora
-      </label>
-
-      <label>
-        <input type="checkbox" id="toggleSignal" checked>
-        Mostrar sinal
-      </label>
-
-      <label>
-        <input type="checkbox" id="toggleWifi" checked>
-        Mostrar wi-fi
-      </label>
-
-      <label>
-        <input type="checkbox" id="toggleBattery" checked>
-        Mostrar bateria
-      </label>
-
-      <label>
-        <input type="checkbox" id="toggleIsland" checked>
-        Mostrar barra preta
-      </label>
-
-      <label>
-        <input type="checkbox" id="toggleDot" checked>
-        Mostrar ponto vermelho
-      </label>
-
-      <label>
-        <input type="checkbox" id="dragMode">
-        Ativar modo arrastar
-      </label>
+      <label><input type="checkbox" id="toggleHora" checked> Mostrar hora</label>
+      <label><input type="checkbox" id="toggleSignal" checked> Mostrar sinal</label>
+      <label><input type="checkbox" id="toggleWifi" checked> Mostrar wi-fi</label>
+      <label><input type="checkbox" id="toggleBattery" checked> Mostrar bateria</label>
+      <label><input type="checkbox" id="toggleIsland" checked> Mostrar barra preta</label>
+      <label><input type="checkbox" id="toggleDot" checked> Mostrar ponto vermelho</label>
+      <label><input type="checkbox" id="dragMode"> Ativar modo arrastar</label>
 
       <div class="range-group">
         <span>Velocidade das notificações</span>
@@ -59,25 +32,64 @@
         <small id="speedValue">4000 ms</small>
       </div>
 
-      <button id="closeEditor">Fechar</button>
+      <div class="range-group">
+        <span>Cor dos ícones</span>
+        <input type="color" id="iconColor" value="#ffffff">
+      </div>
+
+      <div class="position-box">
+        <strong>Posição exata</strong>
+
+        <label for="selectItem">Escolha o item</label>
+        <select id="selectItem">
+          <option value="horaBox">Hora</option>
+          <option value="signalBox">Sinal</option>
+          <option value="wifiBox">Wi-fi</option>
+          <option value="batteryBox">Bateria</option>
+          <option value="islandBox">Barra preta</option>
+          <option value="recordingDotBox">Ponto vermelho</option>
+        </select>
+
+        <div class="xy-row">
+          <div>
+            <label for="posX">X</label>
+            <input type="number" id="posX" min="0">
+          </div>
+          <div>
+            <label for="posY">Y</label>
+            <input type="number" id="posY" min="0">
+          </div>
+        </div>
+
+        <button id="applyPosition">Aplicar posição</button>
+      </div>
+
+      <div class="panel-buttons">
+        <button id="resetPositions" class="secondary-btn">Resetar posições</button>
+        <button id="closeEditor">Fechar</button>
+      </div>
     </div>
 
-    <!-- ITENS DA STATUS BAR -->
-    <div class="status-item draggable" id="horaBox" style="left: 18px; top: 16px;">
+    <!-- ITENS -->
+    <div class="status-item draggable" id="horaBox">
       <span id="hora">09:41</span>
     </div>
 
-    <div class="status-item draggable island" id="islandBox" style="left: 120px; top: 12px;">
-      <div class="recording-dot draggable-dot" id="recordingDot"></div>
+    <div class="status-item draggable island" id="islandBox">
+      <div class="camera-hole"></div>
     </div>
 
-    <div class="status-item draggable" id="signalBox" style="left: 275px; top: 18px;">
+    <div class="status-item draggable dot-box" id="recordingDotBox">
+      <div class="recording-dot" id="recordingDot"></div>
+    </div>
+
+    <div class="status-item draggable" id="signalBox">
       <div class="signal">
         <span></span><span></span><span></span><span></span>
       </div>
     </div>
 
-    <div class="status-item draggable" id="wifiBox" style="left: 298px; top: 18px;">
+    <div class="status-item draggable" id="wifiBox">
       <div class="wifi">
         <span class="wifi-arc arc-1"></span>
         <span class="wifi-arc arc-2"></span>
@@ -85,7 +97,7 @@
       </div>
     </div>
 
-    <div class="status-item draggable" id="batteryBox" style="left: 320px; top: 18px;">
+    <div class="status-item draggable" id="batteryBox">
       <div class="battery">
         <div class="battery-level"></div>
       </div>
