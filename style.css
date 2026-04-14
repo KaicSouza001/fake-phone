@@ -1,3 +1,7 @@
+:root {
+  --status-icon-color: #ffffff;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -26,27 +30,29 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 80px;
   background: transparent;
   border: none;
   outline: none;
   z-index: 200;
-  cursor: pointer;
+  cursor: default;
 }
 
 /* PAINEL */
 .editor-panel {
   position: absolute;
-  top: 80px;
+  top: 85px;
   left: 15px;
-  width: 220px;
-  background: rgba(0, 0, 0, 0.78);
+  width: 240px;
+  max-height: 560px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   color: white;
   border-radius: 18px;
   padding: 14px;
-  z-index: 250;
+  z-index: 300;
   display: none;
   box-sizing: border-box;
 }
@@ -82,8 +88,12 @@ body {
   margin-bottom: 6px;
 }
 
-.range-group input[type="range"] {
+.range-group input[type="range"],
+.range-group input[type="color"],
+.position-box select,
+.position-box input[type="number"] {
   width: 100%;
+  box-sizing: border-box;
 }
 
 .range-group small {
@@ -92,32 +102,99 @@ body {
   opacity: 0.8;
 }
 
-#closeEditor {
+.position-box {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+}
+
+.position-box strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.position-box label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.xy-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.xy-row > div {
+  flex: 1;
+}
+
+.position-box select,
+.position-box input[type="number"] {
+  border: none;
+  border-radius: 10px;
+  padding: 9px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  outline: none;
+}
+
+.position-box option {
+  color: black;
+}
+
+#applyPosition,
+#closeEditor,
+.secondary-btn {
   width: 100%;
   border: none;
-  background: white;
-  color: black;
   border-radius: 12px;
   padding: 10px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 12px;
 }
 
-/* ITENS ARRASTÁVEIS */
+#applyPosition,
+#closeEditor {
+  background: white;
+  color: black;
+}
+
+.secondary-btn {
+  background: rgba(255,255,255,0.14);
+  color: white;
+}
+
+.panel-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* ITENS */
 .status-item {
   position: absolute;
   z-index: 50;
+  touch-action: none;
 }
 
 .status-item.drag-enabled {
-  outline: 1px dashed rgba(255,255,255,0.5);
+  outline: 1px dashed rgba(255,255,255,0.55);
   border-radius: 12px;
-  cursor: move;
+  cursor: grab;
+}
+
+.status-item.dragging {
+  cursor: grabbing;
 }
 
 /* HORA */
 #hora {
-  color: white;
+  color: var(--status-icon-color);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.2px;
@@ -132,12 +209,23 @@ body {
   border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 24px;
+  justify-content: center;
   box-sizing: border-box;
 }
 
+.camera-hole {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+}
+
 /* PONTO VERMELHO */
+.dot-box {
+  width: 12px;
+  height: 12px;
+}
+
 .recording-dot {
   width: 10px;
   height: 10px;
@@ -155,7 +243,7 @@ body {
 
 .signal span {
   width: 2.5px;
-  background: white;
+  background: var(--status-icon-color);
   border-radius: 1px;
 }
 
@@ -176,7 +264,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   border: 1.7px solid transparent;
-  border-top-color: white;
+  border-top-color: var(--status-icon-color);
   border-radius: 50%;
 }
 
@@ -196,7 +284,7 @@ body {
   position: absolute;
   width: 2.5px;
   height: 2.5px;
-  background: white;
+  background: var(--status-icon-color);
   border-radius: 50%;
   left: 50%;
   bottom: 1px;
@@ -208,7 +296,7 @@ body {
   position: relative;
   width: 22px;
   height: 11px;
-  border: 1.6px solid white;
+  border: 1.6px solid var(--status-icon-color);
   border-radius: 3px;
   box-sizing: border-box;
 }
@@ -220,14 +308,14 @@ body {
   top: 2.2px;
   width: 2px;
   height: 5px;
-  background: white;
+  background: var(--status-icon-color);
   border-radius: 1px;
 }
 
 .battery-level {
   width: 72%;
   height: 100%;
-  background: white;
+  background: var(--status-icon-color);
   border-radius: 1.5px;
 }
 
@@ -261,7 +349,6 @@ body {
   padding: 14px;
   color: white;
   box-sizing: border-box;
-
   transform: translateY(-60px);
   opacity: 0;
   animation: slideDown 0.5s ease forwards;
@@ -305,7 +392,6 @@ body {
   font-weight: 600;
 }
 
-/* ESCONDER */
 .hidden {
   display: none !important;
 }
