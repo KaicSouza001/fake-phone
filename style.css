@@ -20,16 +20,17 @@ body {
   cursor: none;
 }
 
-/* 🔴 GRAVAÇÃO */
+/* 🔴 GRAVAÇÃO (AGORA CENTRAL EM CIMA DA ISLAND) */
 .recording-dot {
   position: absolute;
-  top: 14px;
-  left: 20px;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 8px;
   height: 8px;
   background: red;
   border-radius: 50%;
-  z-index: 5;
+  z-index: 6;
 }
 
 /* STATUS BAR */
@@ -37,38 +38,50 @@ body {
   position: absolute;
   top: 10px;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 20px; /* aumentei pra não cortar */
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: white;
   font-size: 14px;
   font-weight: 600;
   z-index: 4;
+  box-sizing: border-box;
 }
 
-/* BATERIA */
+/* AGRUPAMENTO DIREITA */
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* BATERIA (CORRIGIDA) */
 .battery {
-  width: 22px;
-  height: 10px;
+  width: 24px;
+  height: 12px;
   border: 1.5px solid white;
   border-radius: 3px;
   position: relative;
+  box-sizing: border-box;
 }
 
 .battery::after {
   content: "";
   position: absolute;
-  right: -4px;
-  top: 2px;
+  right: -3px;
+  top: 3px;
   width: 2px;
-  height: 5px;
+  height: 6px;
   background: white;
+  border-radius: 1px;
 }
 
 .battery-level {
   width: 70%;
   height: 100%;
   background: white;
+  border-radius: 2px;
 }
 
 /* DYNAMIC ISLAND */
@@ -81,7 +94,7 @@ body {
   height: 25px;
   background: black;
   border-radius: 20px;
-  z-index: 3;
+  z-index: 5;
 }
 
 /* NOTIFICAÇÕES */
@@ -92,7 +105,6 @@ body {
   height: calc(100% - 50px);
   overflow-y: auto;
 
-  /* REMOVE BARRAS */
   scrollbar-width: none;
 }
 
