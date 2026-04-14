@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fake Phone</title>
+  <title>Fake Phone Personalizável</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,33 +11,83 @@
 
   <div class="phone">
 
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-      <div class="status-left">
-        <span id="hora">09:41</span>
+    <!-- BOTÃO INVISÍVEL -->
+    <button id="hiddenEditorBtn" class="hidden-editor-btn" title="Abrir editor"></button>
+
+    <!-- PAINEL DE EDIÇÃO -->
+    <div class="editor-panel" id="editorPanel">
+      <h3>Editor da Status Bar</h3>
+
+      <label>
+        <input type="checkbox" id="toggleHora" checked>
+        Mostrar hora
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleSignal" checked>
+        Mostrar sinal
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleWifi" checked>
+        Mostrar wi-fi
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleBattery" checked>
+        Mostrar bateria
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleIsland" checked>
+        Mostrar barra preta
+      </label>
+
+      <label>
+        <input type="checkbox" id="toggleDot" checked>
+        Mostrar ponto vermelho
+      </label>
+
+      <label>
+        <input type="checkbox" id="dragMode">
+        Ativar modo arrastar
+      </label>
+
+      <div class="range-group">
+        <span>Velocidade das notificações</span>
+        <input type="range" id="speedRange" min="1000" max="10000" step="500" value="4000">
+        <small id="speedValue">4000 ms</small>
       </div>
 
-      <div class="island">
-        <div class="recording-dot"></div>
+      <button id="closeEditor">Fechar</button>
+    </div>
+
+    <!-- ITENS DA STATUS BAR -->
+    <div class="status-item draggable" id="horaBox" style="left: 18px; top: 16px;">
+      <span id="hora">09:41</span>
+    </div>
+
+    <div class="status-item draggable island" id="islandBox" style="left: 120px; top: 12px;">
+      <div class="recording-dot draggable-dot" id="recordingDot"></div>
+    </div>
+
+    <div class="status-item draggable" id="signalBox" style="left: 275px; top: 18px;">
+      <div class="signal">
+        <span></span><span></span><span></span><span></span>
       </div>
+    </div>
 
-      <div class="status-right">
-        <div class="signal">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+    <div class="status-item draggable" id="wifiBox" style="left: 298px; top: 18px;">
+      <div class="wifi">
+        <span class="wifi-arc arc-1"></span>
+        <span class="wifi-arc arc-2"></span>
+        <span class="wifi-dot"></span>
+      </div>
+    </div>
 
-        <div class="wifi">
-          <span class="wifi-arc arc-1"></span>
-          <span class="wifi-arc arc-2"></span>
-          <span class="wifi-dot"></span>
-        </div>
-
-        <div class="battery">
-          <div class="battery-level"></div>
-        </div>
+    <div class="status-item draggable" id="batteryBox" style="left: 320px; top: 18px;">
+      <div class="battery">
+        <div class="battery-level"></div>
       </div>
     </div>
 
