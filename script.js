@@ -35,7 +35,14 @@ const applyPositionBtn = document.getElementById("applyPosition");
 const selectedItemLabel = document.getElementById("selectedItemLabel");
 const resetPositionsBtn = document.getElementById("resetPositions");
 
-const draggables = document.querySelectorAll(".draggable");
+const presetNameInput = document.getElementById("presetName");
+const presetList = document.getElementById("presetList");
+const savePresetBtn = document.getElementById("savePreset");
+const loadPresetBtn = document.getElementById("loadPreset");
+const deletePresetBtn = document.getElementById("deletePreset");
+
+const draggableItems = document.querySelectorAll(".draggable");
+const selectableItems = document.querySelectorAll(".selectable");
 
 let notificationSpeed = 4000;
 let notificationTimeout;
@@ -49,7 +56,8 @@ const STORAGE_KEYS = {
   positions: "fakePhone_positions",
   visibility: "fakePhone_visibility",
   colors: "fakePhone_colors",
-  speed: "fakePhone_speed"
+  speed: "fakePhone_speed",
+  presets: "fakePhone_presets"
 };
 
 /* --------------------------
@@ -116,19 +124,96 @@ function iniciarLoopNotificacao() {
 }
 
 /* --------------------------
-   SALVAR / CARREGAR
+   HELPERS
 --------------------------- */
-function savePositions() {
+function getDefaultPositions() {
+  return {
+    horaBox: { left: 18, top: 16 },
+    islandBox: { left: 118, top: 12 },
+    signalBox: { left: 275, top: 18 },
+    wifiBox: { left: 298, top: 18 },
+    batteryBox: { left: 320, top: 18 },
+    recordingDot: { left: 24, top: 10 }
+  };
+}
+
+function clampPosition(element, left, top, parent = phone) {
+  const maxLeft = parent.clientWidth - element.offsetWidth;
+  const maxTop = parent.clientHeight - element.offsetHeight;
+
+  const clampedLeft = Math.max(0, Math.min(left, maxLeft));
+  const clampedTop = Math.max(0, Math.min(top, maxTop));
+
+  return { left: clampedLeft, top: clampedTop };
+}
+
+function getAllCurrentPositions() {
   const positions = {};
 
-  draggables.forEach((item) => {
+  draggableItems.forEach((item) => {
     positions[item.id] = {
       left: parseInt(item.style.left, 10) || 0,
       top: parseInt(item.style.top, 10) || 0
     };
   });
 
-  localStorage.setItem(STORAGE_KEYS.positions, JSON.stringify(positions));
+  return positions;
+}
+
+function isInsideIsland(element) {
+  return element.id === "recordingDot";
+}
+
+function getParentForElement(element) {
+  if (isInsideIsland(element)) {
+    return islandBox;
+  }
+  return phone;
+}
+
+function getSafePositionForElement(element, left, top) {
+  const parent = getParentForElement(element);
+  return clampPosition(element, left, top, parent);
+}
+
+function setElementPosition(element, left, top) {
+  const pos = getSafePositionForElement(element, left, top);
+  element.style.left = `${pos.left}px`;
+  element.style.top = `${pos.top}px`;
+}
+
+function updateXYInputs(element) {
+  posXInput.value = parseInt(element.style.left, 10) || 0;
+  posYInput.value = parseInt(element.style.top, 10) || 0;
+}
+
+function clearSelection() {
+  selectableItems.forEach((item) => item.classList.remove("selected-item"));
+}
+
+function applyColors() {
+  document.documentElement.style.setProperty("--signal-color", signalColorInput.value);
+  document.documentElement.style.setProperty("--wifi-color", wifiColorInput.value);
+  document.documentElement.style.setProperty("--battery-color", batteryColorInput.value);
+}
+
+/* --------------------------
+   SELEÇÃO
+--------------------------- */
+function selectElement(element) {
+  clearSelection();
+  selectedElement = element;
+  selectedElement.classList.add("selected-item");
+
+  selectedItemLabel.textContent = `Item selecionado: ${selectedElement.dataset.name || selectedElement.id}`;
+  updateXYInputs(selectedElement);
+}
+
+/* --------------------------
+   SALVAR / CARREGAR ESTADO
+--------------------------- */
+function savePositions() {
+  localStorage.setItem(STORAGE_KEYS.positions, JSON.stringify(getAllCurrentPositions()));
 }
 
 function loadPositions() {
@@ -137,10 +222,9 @@ function loadPositions() {
 
   const positions = JSON.parse(saved);
 
-  draggables.forEach((item) => {
+  draggableItems.forEach((item) => {
     if (positions[item.id]) {
-      item.style.left = `${positions[item.id].left}px`;
-      item.style.top = `${positions[item.id].top}px`;
+      setElementPosition(item, positions[item.id].left, positions[item.id].top);
     }
   });
 }
@@ -216,75 +300,123 @@ function loadSpeed() {
 }
 
 /* --------------------------
-   CORES
+   PRESETS
 --------------------------- */
-function applyColors() {
-  document.documentElement.style.setProperty("--signal-color", signalColorInput.value);
-  document.documentElement.style.setProperty("--wifi-color", wifiColorInput.value);
-  document.documentElement.style.setProperty("--battery-color", batteryColorInput.value);
+function getPresets() {
+  const saved = localStorage.getItem(STORAGE_KEYS.presets);
+  return saved ? JSON.parse(saved) : {};
 }
 
-/* --------------------------
-   SELEÇÃO
---------------------------- */
-function selectElement(element) {
-  draggables.forEach((item) => item.classList.remove("selected-item"));
-
-  selectedElement = element;
-  selectedElement.classList.add("selected-item");
-
-  selectedItemLabel.textContent = `Item selecionado: ${selectedElement.dataset.name || selectedElement.id}`;
-  posXInput.value = parseInt(selectedElement.style.left, 10) || 0;
-  posYInput.value = parseInt(selectedElement.style.top, 10) || 0;
+function savePresetsObject(presets) {
+  localStorage.setItem(STORAGE_KEYS.presets, JSON.stringify(presets));
 }
 
-function updateXYInputs(element) {
-  posXInput.value = parseInt(element.style.left, 10) || 0;
-  posYInput.value = parseInt(element.style.top, 10) || 0;
+function refreshPresetList() {
+  const presets = getPresets();
+  presetList.innerHTML = "";
+
+  const names = Object.keys(presets);
+
+  names.forEach((name) => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    presetList.appendChild(option);
+  });
 }
 
-/* --------------------------
-   POSIÇÃO
---------------------------- */
-function clampPosition(element, left, top) {
-  const maxLeft = phone.clientWidth - element.offsetWidth;
-  const maxTop = phone.clientHeight - element.offsetHeight;
+function savePreset() {
+  const name = presetNameInput.value.trim();
 
-  const clampedLeft = Math.max(0, Math.min(left, maxLeft));
-  const clampedTop = Math.max(0, Math.min(top, maxTop));
+  if (!name) {
+    alert("Digite um nome para o preset.");
+    return;
+  }
 
-  return { left: clampedLeft, top: clampedTop };
+  const presets = getPresets();
+
+  presets[name] = {
+    positions: getAllCurrentPositions()
+  };
+
+  savePresetsObject(presets);
+  refreshPresetList();
+  presetList.value = name;
+  presetNameInput.value = "";
 }
 
-function applyPositionToSelected() {
-  if (!selectedElement) return;
+function loadPreset() {
+  const selectedName = presetList.value;
+  if (!selectedName) {
+    alert("Selecione um preset.");
+    return;
+  }
 
-  let x = parseInt(posXInput.value, 10);
-  let y = parseInt(posYInput.value, 10);
+  const presets = getPresets();
+  const preset = presets[selectedName];
 
-  if (isNaN(x)) x = 0;
-  if (isNaN(y)) y = 0;
+  if (!preset || !preset.positions) return;
 
-  const pos = clampPosition(selectedElement, x, y);
+  draggableItems.forEach((item) => {
+    if (preset.positions[item.id]) {
+      setElementPosition(item, preset.positions[item.id].left, preset.positions[item.id].top);
+    }
+  });
 
-  selectedElement.style.left = `${pos.left}px`;
-  selectedElement.style.top = `${pos.top}px`;
+  if (selectedElement) {
+    updateXYInputs(selectedElement);
+  }
 
-  updateXYInputs(selectedElement);
   savePositions();
+}
+
+function deletePreset() {
+  const selectedName = presetList.value;
+  if (!selectedName) {
+    alert("Selecione um preset para excluir.");
+    return;
+  }
+
+  const presets = getPresets();
+  delete presets[selectedName];
+  savePresetsObject(presets);
+  refreshPresetList();
 }
 
 /* --------------------------
    PAINEL
 --------------------------- */
+function openPanel() {
+  editorPanel.classList.add("open");
+  hiddenEditorBtn.classList.add("disabled-open");
+}
+
+function closePanel() {
+  editorPanel.classList.remove("open");
+  hiddenEditorBtn.classList.remove("disabled-open");
+}
+
+function togglePanel() {
+  const isOpen = editorPanel.classList.contains("open");
+
+  if (isOpen) {
+    closePanel();
+  } else {
+    openPanel();
+  }
+}
+
 hiddenEditorBtn.addEventListener("dblclick", () => {
-  editorPanel.classList.toggle("open");
+  togglePanel();
 });
 
 closeEditor.addEventListener("click", () => {
-  editorPanel.classList.remove("open");
+  closePanel();
 });
 
+/* --------------------------
+   VELOCIDADE
+--------------------------- */
 speedRange.addEventListener("input", () => {
   notificationSpeed = Number(speedRange.value);
   speedValue.textContent = `${notificationSpeed} ms`;
@@ -293,7 +425,7 @@ speedRange.addEventListener("input", () => {
 });
 
 /* --------------------------
-   MOSTRAR / ESCONDER ITENS
+   VISIBILIDADE
 --------------------------- */
 toggleHora.addEventListener("change", (e) => {
   horaBox.classList.toggle("hidden", !e.target.checked);
@@ -326,7 +458,7 @@ toggleDot.addEventListener("change", (e) => {
 });
 
 /* --------------------------
-   CORES INPUT
+   CORES
 --------------------------- */
 signalColorInput.addEventListener("input", () => {
   applyColors();
@@ -344,10 +476,23 @@ batteryColorInput.addEventListener("input", () => {
 });
 
 /* --------------------------
-   APLICAR X/Y
+   X / Y
 --------------------------- */
-applyPositionBtn.addEventListener("click", applyPositionToSelected);
+function applyPositionToSelected() {
+  if (!selectedElement) return;
 
+  let x = parseInt(posXInput.value, 10);
+  let y = parseInt(posYInput.value, 10);
+
+  if (isNaN(x)) x = 0;
+  if (isNaN(y)) y = 0;
+
+  setElementPosition(selectedElement, x, y);
+  updateXYInputs(selectedElement);
+  savePositions();
+}
+
+applyPositionBtn.addEventListener("click", applyPositionToSelected);
 posXInput.addEventListener("change", applyPositionToSelected);
 posYInput.addEventListener("change", applyPositionToSelected);
 
@@ -355,18 +500,11 @@ posYInput.addEventListener("change", applyPositionToSelected);
    RESETAR POSIÇÕES
 --------------------------- */
 resetPositionsBtn.addEventListener("click", () => {
-  const defaults = {
-    horaBox: { left: 18, top: 16 },
-    islandBox: { left: 118, top: 12 },
-    signalBox: { left: 275, top: 18 },
-    wifiBox: { left: 298, top: 18 },
-    batteryBox: { left: 320, top: 18 }
-  };
+  const defaults = getDefaultPositions();
 
-  draggables.forEach((item) => {
+  draggableItems.forEach((item) => {
     if (defaults[item.id]) {
-      item.style.left = `${defaults[item.id].left}px`;
-      item.style.top = `${defaults[item.id].top}px`;
+      setElementPosition(item, defaults[item.id].left, defaults[item.id].top);
     }
   });
 
@@ -378,17 +516,38 @@ resetPositionsBtn.addEventListener("click", () => {
 });
 
 /* --------------------------
+   PRESETS EVENTOS
+--------------------------- */
+savePresetBtn.addEventListener("click", savePreset);
+loadPresetBtn.addEventListener("click", loadPreset);
+deletePresetBtn.addEventListener("click", deletePreset);
+
+presetList.addEventListener("change", () => {
+  presetNameInput.value = presetList.value;
+});
+
+/* --------------------------
+   SELECIONAR ITEM
+--------------------------- */
+selectableItems.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selectElement(item);
+  });
+});
+
+/* --------------------------
    MODO ARRASTAR
 --------------------------- */
 dragMode.addEventListener("change", (e) => {
   isDragMode = e.target.checked;
 
-  draggables.forEach((item) => {
+  draggableItems.forEach((item) => {
     item.classList.toggle("drag-enabled", isDragMode);
   });
 });
 
-draggables.forEach(makeDraggable);
+draggableItems.forEach(makeDraggable);
 
 function makeDraggable(element) {
   let isDragging = false;
@@ -421,15 +580,7 @@ function makeDraggable(element) {
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
 
-    const pos = clampPosition(
-      element,
-      initialLeft + deltaX,
-      initialTop + deltaY
-    );
-
-    element.style.left = `${pos.left}px`;
-    element.style.top = `${pos.top}px`;
-
+    setElementPosition(element, initialLeft + deltaX, initialTop + deltaY);
     updateXYInputs(element);
   });
 
@@ -443,15 +594,47 @@ function makeDraggable(element) {
 }
 
 /* --------------------------
+   CLIQUE FORA DO PAINEL
+--------------------------- */
+document.addEventListener("click", (e) => {
+  const clickedInsidePanel = editorPanel.contains(e.target);
+  const clickedButton = hiddenEditorBtn.contains(e.target);
+
+  if (!clickedInsidePanel && !clickedButton && editorPanel.classList.contains("open")) {
+    clearSelection();
+    if (selectedElement) {
+      selectedElement.classList.add("selected-item");
+    }
+  }
+});
+
+/* --------------------------
    INICIALIZAÇÃO
 --------------------------- */
+function applyDefaultPositionsIfNeeded() {
+  const saved = localStorage.getItem(STORAGE_KEYS.positions);
+  if (saved) return;
+
+  const defaults = getDefaultPositions();
+
+  draggableItems.forEach((item) => {
+    if (defaults[item.id]) {
+      setElementPosition(item, defaults[item.id].left, defaults[item.id].top);
+    }
+  });
+
+  savePositions();
+}
+
 function init() {
+  applyDefaultPositionsIfNeeded();
   loadPositions();
   loadVisibility();
   loadColors();
   loadSpeed();
-
+  refreshPresetList();
   applyColors();
+
   speedValue.textContent = `${notificationSpeed} ms`;
 
   selectElement(horaBox);
