@@ -20,17 +20,16 @@ body {
   cursor: none;
 }
 
-/* 🔴 GRAVAÇÃO (AJUSTADO PRO LADO DIREITO) */
+/* 🔴 GRAVAÇÃO */
 .recording-dot {
   position: absolute;
-  top: 5px;
-  left: 60%; /* puxei mais pra direita */
-  transform: translateX(-50%);
+  top: 14px;
+  left: 20px;
   width: 8px;
   height: 8px;
   background: red;
   border-radius: 50%;
-  z-index: 6;
+  z-index: 5;
 }
 
 /* STATUS BAR */
@@ -38,51 +37,38 @@ body {
   position: absolute;
   top: 10px;
   width: 100%;
-  padding: 0 28px; /* aumentei pra empurrar tudo pra dentro */
+  padding: 0 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   color: white;
   font-size: 14px;
   font-weight: 600;
   z-index: 4;
-  box-sizing: border-box;
 }
 
-/* AGRUPAMENTO DIREITA */
-.right-icons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* 🔋 BATERIA (MAIS PRA DENTRO) */
+/* BATERIA */
 .battery {
-  width: 24px;
-  height: 12px;
+  width: 22px;
+  height: 10px;
   border: 1.5px solid white;
   border-radius: 3px;
   position: relative;
-  margin-right: 6px; /* empurra mais pra dentro */
-  box-sizing: border-box;
 }
 
 .battery::after {
   content: "";
   position: absolute;
-  right: -3px;
-  top: 3px;
+  right: -4px;
+  top: 2px;
   width: 2px;
-  height: 6px;
+  height: 5px;
   background: white;
-  border-radius: 1px;
 }
 
 .battery-level {
   width: 70%;
   height: 100%;
   background: white;
-  border-radius: 2px;
 }
 
 /* DYNAMIC ISLAND */
@@ -95,7 +81,7 @@ body {
   height: 25px;
   background: black;
   border-radius: 20px;
-  z-index: 5;
+  z-index: 3;
 }
 
 /* NOTIFICAÇÕES */
@@ -106,6 +92,7 @@ body {
   height: calc(100% - 50px);
   overflow-y: auto;
 
+  /* REMOVE BARRAS */
   scrollbar-width: none;
 }
 
