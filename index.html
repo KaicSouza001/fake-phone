@@ -11,50 +11,50 @@
 
   <div class="phone" id="phone">
 
-    <!-- BOTÃO INVISÍVEL (DUPLO CLIQUE) -->
+    <!-- BOTÃO INVISÍVEL -->
     <button id="hiddenEditorBtn" class="hidden-editor-btn" title="Abrir editor"></button>
 
-    <!-- PAINEL DE EDIÇÃO -->
+    <!-- PAINEL -->
     <div class="editor-panel" id="editorPanel">
-      <h3>Editor da Status Bar</h3>
+      <h3>Editor Status Bar</h3>
 
       <label>
         <input type="checkbox" id="toggleHora" checked>
-        Mostrar hora
+        Hora
       </label>
 
       <label>
         <input type="checkbox" id="toggleSignal" checked>
-        Mostrar sinal
+        Sinal
       </label>
 
       <label>
         <input type="checkbox" id="toggleWifi" checked>
-        Mostrar wi-fi
+        Wi-Fi
       </label>
 
       <label>
         <input type="checkbox" id="toggleBattery" checked>
-        Mostrar bateria
+        Bateria
       </label>
 
       <label>
         <input type="checkbox" id="toggleIsland" checked>
-        Mostrar barra preta
+        Barra preta
       </label>
 
       <label>
         <input type="checkbox" id="toggleDot" checked>
-        Mostrar ponto vermelho
+        Ponto vermelho
       </label>
 
       <label>
         <input type="checkbox" id="dragMode">
-        Ativar modo arrastar
+        Modo arrastar
       </label>
 
       <div class="range-group">
-        <span>Velocidade das notificações</span>
+        <span>Velocidade</span>
         <input type="range" id="speedRange" min="1000" max="10000" step="500" value="4000">
         <small id="speedValue">4000 ms</small>
       </div>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="range-group">
-        <span>Cor do wi-fi</span>
+        <span>Cor do Wi-Fi</span>
         <input type="color" id="wifiColor" value="#ffffff">
       </div>
 
@@ -75,13 +75,14 @@
       </div>
 
       <div class="position-box">
-        <span>Posição exata do item selecionado</span>
+        <span>Posição exata</span>
 
         <div class="xy-row">
           <div>
             <label for="posX">X</label>
             <input type="number" id="posX" min="0" step="1" value="0">
           </div>
+
           <div>
             <label for="posY">Y</label>
             <input type="number" id="posY" min="0" step="1" value="0">
@@ -89,6 +90,21 @@
         </div>
 
         <button id="applyPosition" type="button">Aplicar X/Y</button>
+      </div>
+
+      <div class="preset-box">
+        <span>Presets</span>
+
+        <input type="text" id="presetName" placeholder="Nome do preset">
+
+        <div class="preset-actions">
+          <button id="savePreset" type="button">Salvar preset</button>
+          <button id="loadPreset" type="button">Carregar preset</button>
+        </div>
+
+        <select id="presetList" size="4"></select>
+
+        <button id="deletePreset" type="button" class="secondary-btn">Excluir preset</button>
       </div>
 
       <div class="selected-item-box">
@@ -99,22 +115,22 @@
       <button id="closeEditor" type="button">Fechar</button>
     </div>
 
-    <!-- ITENS DA STATUS BAR -->
-    <div class="status-item draggable" id="horaBox" data-name="Hora" style="left: 18px; top: 16px;">
+    <!-- STATUS BAR -->
+    <div class="status-item draggable selectable" id="horaBox" data-name="Hora" style="left: 18px; top: 16px;">
       <span id="hora">09:41</span>
     </div>
 
-    <div class="status-item draggable island" id="islandBox" data-name="Barra preta" style="left: 118px; top: 12px;">
-      <div class="recording-dot" id="recordingDot"></div>
+    <div class="status-item draggable selectable island" id="islandBox" data-name="Barra preta" style="left: 118px; top: 12px;">
+      <div class="recording-dot draggable selectable" id="recordingDot" data-name="Ponto vermelho"></div>
     </div>
 
-    <div class="status-item draggable" id="signalBox" data-name="Sinal" style="left: 275px; top: 18px;">
+    <div class="status-item draggable selectable" id="signalBox" data-name="Sinal" style="left: 275px; top: 18px;">
       <div class="signal">
         <span></span><span></span><span></span><span></span>
       </div>
     </div>
 
-    <div class="status-item draggable" id="wifiBox" data-name="Wi-Fi" style="left: 298px; top: 18px;">
+    <div class="status-item draggable selectable" id="wifiBox" data-name="Wi-Fi" style="left: 298px; top: 18px;">
       <div class="wifi">
         <span class="wifi-arc arc-1"></span>
         <span class="wifi-arc arc-2"></span>
@@ -122,7 +138,7 @@
       </div>
     </div>
 
-    <div class="status-item draggable" id="batteryBox" data-name="Bateria" style="left: 320px; top: 18px;">
+    <div class="status-item draggable selectable" id="batteryBox" data-name="Bateria" style="left: 320px; top: 18px;">
       <div class="battery">
         <div class="battery-level"></div>
       </div>
