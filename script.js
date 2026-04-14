@@ -1,3 +1,1 @@
-function abrirApp() {
-  document.getElementById("appScreen").style.display = "block";
-}
+// futuro: animações e notificações automáticas
