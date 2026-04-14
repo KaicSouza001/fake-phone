@@ -15,85 +15,186 @@ body {
   border-radius: 45px;
   overflow: hidden;
   position: relative;
-  background: url("Imagem Icone/WALLPAPER.png") center/cover;
-  box-shadow: 0 0 60px rgba(0,0,0,0.9);
+  background: url("Imagem Icone/WALLPAPER.png") center/cover no-repeat;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
   cursor: none;
-}
-
-/* 🔴 GRAVAÇÃO */
-.recording-dot {
-  position: absolute;
-  top: 14px;
-  left: 20px;
-  width: 8px;
-  height: 8px;
-  background: red;
-  border-radius: 50%;
-  z-index: 5;
 }
 
 /* STATUS BAR */
 .status-bar {
   position: absolute;
-  top: 10px;
+  top: 12px;
+  left: 0;
   width: 100%;
-  padding: 0 15px;
+  height: 28px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 0 18px;
+  box-sizing: border-box;
+  z-index: 20;
   color: white;
+}
+
+/* LADO ESQUERDO */
+.status-left {
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+}
+
+#hora {
   font-size: 14px;
-  font-weight: 600;
-  z-index: 4;
-}
-
-/* BATERIA */
-.battery {
-  width: 22px;
-  height: 10px;
-  border: 1.5px solid white;
-  border-radius: 3px;
-  position: relative;
-}
-
-.battery::after {
-  content: "";
-  position: absolute;
-  right: -4px;
-  top: 2px;
-  width: 2px;
-  height: 5px;
-  background: white;
-}
-
-.battery-level {
-  width: 70%;
-  height: 100%;
-  background: white;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1;
 }
 
 /* DYNAMIC ISLAND */
 .island {
   position: absolute;
-  top: 8px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 22px;
+  background: #000;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 18px;
+  box-sizing: border-box;
+  z-index: 25;
+}
+
+/* BOLINHA VERMELHA */
+.recording-dot {
+  width: 7px;
+  height: 7px;
+  background: #ff2d2d;
+  border-radius: 50%;
+}
+
+/* LADO DIREITO */
+.status-right {
+  min-width: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* SINAL */
+.signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 12px;
+}
+
+.signal span {
+  width: 2.5px;
+  background: white;
+  border-radius: 1px;
+}
+
+.signal span:nth-child(1) {
+  height: 4px;
+  opacity: 0.75;
+}
+
+.signal span:nth-child(2) {
+  height: 6px;
+  opacity: 0.85;
+}
+
+.signal span:nth-child(3) {
+  height: 8px;
+  opacity: 0.95;
+}
+
+.signal span:nth-child(4) {
+  height: 10px;
+}
+
+/* WIFI */
+.wifi {
+  position: relative;
+  width: 15px;
+  height: 11px;
+}
+
+.wifi-arc {
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 110px;
-  height: 25px;
-  background: black;
-  border-radius: 20px;
-  z-index: 3;
+  border: 1.7px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+}
+
+.arc-1 {
+  width: 14px;
+  height: 10px;
+  top: 0;
+}
+
+.arc-2 {
+  width: 8px;
+  height: 6px;
+  top: 3px;
+}
+
+.wifi-dot {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  background: white;
+  border-radius: 50%;
+  left: 50%;
+  bottom: 1px;
+  transform: translateX(-50%);
+}
+
+/* BATERIA */
+.battery {
+  position: relative;
+  width: 22px;
+  height: 11px;
+  border: 1.6px solid white;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.battery::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 2.2px;
+  width: 2px;
+  height: 5px;
+  background: white;
+  border-radius: 1px;
+}
+
+.battery-level {
+  width: 72%;
+  height: 100%;
+  background: white;
+  border-radius: 1.5px;
 }
 
 /* NOTIFICAÇÕES */
 .notifications {
   position: absolute;
-  top: 50px;
+  top: 64px;
+  left: 0;
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 64px);
   overflow-y: auto;
-
-  /* REMOVE BARRAS */
   scrollbar-width: none;
+  z-index: 10;
 }
 
 .notifications::-webkit-scrollbar {
@@ -106,11 +207,13 @@ body {
   margin: 10px auto;
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
   border-radius: 22px;
   padding: 14px;
   color: white;
+  box-sizing: border-box;
 
   transform: translateY(-60px);
   opacity: 0;
@@ -124,30 +227,33 @@ body {
   }
 }
 
-/* ÍCONE */
 .notification img {
   width: 42px;
   height: 42px;
   border-radius: 12px;
   margin-right: 12px;
+  object-fit: cover;
 }
 
-/* TEXTO */
 .text {
   flex: 1;
 }
 
 .text strong {
+  display: block;
   font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
 }
 
 .text p {
-  margin: 2px 0 0;
+  margin: 0;
   font-size: 13px;
+  font-weight: 600;
 }
 
-/* TEMPO */
 .time {
   font-size: 11px;
-  opacity: 0.7;
+  opacity: 0.8;
+  font-weight: 600;
 }
