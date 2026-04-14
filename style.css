@@ -5,72 +5,78 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Inter', sans-serif;
 }
 
 /* CELULAR */
 .phone {
-  width: 320px;
-  height: 650px;
-  border-radius: 40px;
+  width: 340px;
+  height: 700px;
+  border-radius: 45px;
   overflow: hidden;
   position: relative;
   background: url("Imagem Icone/WALLPAPER.png") center/cover;
-  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  box-shadow: 0 0 60px rgba(0,0,0,0.9);
   cursor: none;
 }
 
 /* STATUS BAR */
 .status-bar {
   position: absolute;
-  top: 10px;
+  top: 12px;
   width: 100%;
   text-align: center;
   color: white;
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
-/* NOTIFICAÇÕES */
+/* ÁREA DE NOTIFICAÇÕES */
 .notifications {
   position: absolute;
-  top: 40px;
+  top: 50px;
   width: 100%;
-  height: calc(100% - 40px);
-  padding: 15px;
+  height: calc(100% - 50px);
+  padding: 10px 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZA */
 }
 
 /* CARD */
 .notification {
+  width: 90%; /* deixa centralizado bonito */
+  max-width: 300px;
+
   display: flex;
   align-items: center;
   background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(30px);
-  border-radius: 20px;
-  padding: 12px;
+  backdrop-filter: blur(35px);
+  border-radius: 22px;
+  padding: 14px;
   margin-bottom: 12px;
   color: white;
 
-  /* animação */
-  transform: translateY(-50px);
+  transform: translateY(-60px) scale(0.95);
   opacity: 0;
   animation: slideDown 0.5s ease forwards;
 }
 
-/* ANIMAÇÃO */
+/* ANIMAÇÃO MAIS SUAVE */
 @keyframes slideDown {
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
 /* ÍCONE */
 .notification img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 12px;
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 /* TEXTO */
@@ -79,16 +85,18 @@ body {
 }
 
 .text strong {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .text p {
-  margin: 2px 0 0;
-  font-size: 12px;
+  margin: 3px 0 0;
+  font-size: 13px;
+  opacity: 0.95;
 }
 
 /* TEMPO */
 .time {
   font-size: 11px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
