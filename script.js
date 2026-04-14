@@ -1,18 +1,13 @@
 const container = document.getElementById("notifications");
 
-// lista de valores (pode editar depois)
-const valores = [
-  "R$ 294,51",
-  "R$ 479,65",
-  "R$ 244,51",
-  "R$ 189,90",
-  "R$ 512,22"
-];
+// gerar valor aleatório REALISTA
+function gerarValor() {
+  const valor = (Math.random() * 500 + 50).toFixed(2);
+  return "R$ " + valor.replace(".", ",");
+}
 
-// função criar notificação
+// criar notificação
 function criarNotificacao() {
-  const valor = valores[Math.floor(Math.random() * valores.length)];
-
   const notif = document.createElement("div");
   notif.className = "notification";
 
@@ -20,7 +15,7 @@ function criarNotificacao() {
     <img src="Imagem Icone/Icone Cakto Mensagens.png">
     <div class="text">
       <strong>Venda aprovada!</strong>
-      <p>Sua comissão: ${valor}</p>
+      <p>Sua comissão: ${gerarValor()}</p>
     </div>
     <span class="time">agora</span>
   `;
@@ -28,10 +23,18 @@ function criarNotificacao() {
   container.prepend(notif);
 }
 
-// gerar automaticamente a cada 2 segundos
-setInterval(criarNotificacao, 2000);
+// TEMPO ALEATÓRIO (1s até 4s)
+function loopNotificacoes() {
+  criarNotificacao();
 
-// atualizar hora real
+  const tempo = Math.random() * 3000 + 1000;
+
+  setTimeout(loopNotificacoes, tempo);
+}
+
+loopNotificacoes();
+
+// RELÓGIO REAL
 function atualizarHora() {
   const agora = new Date();
   let h = agora.getHours().toString().padStart(2, "0");
