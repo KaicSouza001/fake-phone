@@ -4,22 +4,53 @@
   <meta charset="UTF-8">
   <title>Fake Phone</title>
 
-  <!-- FONTE ESTILO IPHONE -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="phone">
 
-  <!-- STATUS BAR -->
-  <div class="status-bar">
-    <span id="hora">17:45</span>
+  <!-- 🔐 LOCK SCREEN -->
+  <div class="lockscreen" id="lockscreen">
+
+    <div class="lock-time" id="lockTime">17:45</div>
+    <div class="lock-text">Deslize para desbloquear</div>
+
+    <div class="swipe-bar" id="swipeBar"></div>
+
   </div>
 
-  <!-- NOTIFICAÇÕES -->
-  <div class="notifications" id="notifications"></div>
+  <!-- 🔢 TELA DE SENHA -->
+  <div class="password-screen" id="passwordScreen">
+
+    <div class="password-dots" id="dots"></div>
+
+    <div class="keypad">
+      <button onclick="digitar(1)">1</button>
+      <button onclick="digitar(2)">2</button>
+      <button onclick="digitar(3)">3</button>
+      <button onclick="digitar(4)">4</button>
+      <button onclick="digitar(5)">5</button>
+      <button onclick="digitar(6)">6</button>
+      <button onclick="digitar(7)">7</button>
+      <button onclick="digitar(8)">8</button>
+      <button onclick="digitar(9)">9</button>
+      <button onclick="digitar(0)">0</button>
+    </div>
+
+  </div>
+
+  <!-- 📱 SISTEMA (NOTIFICAÇÕES) -->
+  <div class="system" id="system">
+
+    <div class="status-bar">
+      <span id="hora">17:45</span>
+    </div>
+
+    <div class="notifications" id="notifications"></div>
+
+  </div>
 
 </div>
 
