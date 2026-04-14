@@ -137,16 +137,6 @@ function getDefaultPositions() {
   };
 }
 
-function clampPosition(element, left, top, parent = phone) {
-  const maxLeft = parent.clientWidth - element.offsetWidth;
-  const maxTop = parent.clientHeight - element.offsetHeight;
-
-  const clampedLeft = Math.max(0, Math.min(left, maxLeft));
-  const clampedTop = Math.max(0, Math.min(top, maxTop));
-
-  return { left: clampedLeft, top: clampedTop };
-}
-
 function getAllCurrentPositions() {
   const positions = {};
 
@@ -160,26 +150,9 @@ function getAllCurrentPositions() {
   return positions;
 }
 
-function isInsideIsland(element) {
-  return element.id === "recordingDot";
-}
-
-function getParentForElement(element) {
-  if (isInsideIsland(element)) {
-    return islandBox;
-  }
-  return phone;
-}
-
-function getSafePositionForElement(element, left, top) {
-  const parent = getParentForElement(element);
-  return clampPosition(element, left, top, parent);
-}
-
 function setElementPosition(element, left, top) {
-  const pos = getSafePositionForElement(element, left, top);
-  element.style.left = `${pos.left}px`;
-  element.style.top = `${pos.top}px`;
+  element.style.left = `${left}px`;
+  element.style.top = `${top}px`;
 }
 
 function updateXYInputs(element) {
@@ -592,21 +565,6 @@ function makeDraggable(element) {
     savePositions();
   });
 }
-
-/* --------------------------
-   CLIQUE FORA DO PAINEL
---------------------------- */
-document.addEventListener("click", (e) => {
-  const clickedInsidePanel = editorPanel.contains(e.target);
-  const clickedButton = hiddenEditorBtn.contains(e.target);
-
-  if (!clickedInsidePanel && !clickedButton && editorPanel.classList.contains("open")) {
-    clearSelection();
-    if (selectedElement) {
-      selectedElement.classList.add("selected-item");
-    }
-  }
-});
 
 /* --------------------------
    INICIALIZAÇÃO
