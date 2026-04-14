@@ -1,6 +1,6 @@
 const container = document.getElementById("notifications");
 
-/* GERAR VALORES REALISTAS */
+/* GERAR VALORES */
 function gerarValor() {
   const tipo = Math.random();
 
@@ -13,7 +13,7 @@ function gerarValor() {
   }
 }
 
-/* CRIAR NOTIFICAÇÃO */
+/* NOTIFICAÇÃO */
 function criarNotificacao() {
   const notif = document.createElement("div");
   notif.className = "notification";
@@ -30,13 +30,10 @@ function criarNotificacao() {
   container.prepend(notif);
 }
 
-/* LOOP COM TEMPO MAIS NATURAL */
+/* LOOP */
 function loop() {
   criarNotificacao();
-
-  // ENTRE 3 E 8 SEGUNDOS
   const tempo = Math.random() * 5000 + 3000;
-
   setTimeout(loop, tempo);
 }
 
@@ -45,10 +42,8 @@ loop();
 /* RELÓGIO */
 function atualizarHora() {
   const agora = new Date();
-
   let h = agora.getHours().toString().padStart(2, "0");
   let m = agora.getMinutes().toString().padStart(2, "0");
-
   document.getElementById("hora").innerText = `${h}:${m}`;
 }
 
