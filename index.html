@@ -2,50 +2,50 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fake Phone</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="phone">
+  <div class="phone">
 
-<!-- STATUS BAR -->
-<div class="status-bar">
-  <span id="hora">09:41</span>
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span id="hora">09:41</span>
+      </div>
 
-  <div class="right-icons">
-    <!-- SINAL -->
-    <div class="signal">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+      <div class="island">
+        <div class="recording-dot"></div>
+      </div>
+
+      <div class="status-right">
+        <div class="signal">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="wifi">
+          <span class="wifi-arc arc-1"></span>
+          <span class="wifi-arc arc-2"></span>
+          <span class="wifi-dot"></span>
+        </div>
+
+        <div class="battery">
+          <div class="battery-level"></div>
+        </div>
+      </div>
     </div>
 
-    <!-- WIFI -->
-    <div class="wifi">
-      <span></span>
-    </div>
+    <!-- NOTIFICAÇÕES -->
+    <div class="notifications" id="notifications"></div>
 
-    <!-- BATERIA -->
-    <div class="battery">
-      <div class="battery-level"></div>
-    </div>
   </div>
-</div>
 
-<!-- DYNAMIC ISLAND -->
-<div class="island">
-  <div class="recording-dot"></div>
-</div>
-
-  <!-- NOTIFICAÇÕES -->
-  <div class="notifications" id="notifications"></div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
